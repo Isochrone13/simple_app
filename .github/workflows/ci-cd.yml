@@ -39,9 +39,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Create SSH directory
-      run: mkdir -p ~/.ssh
-
     - name: Add GitHub to known hosts
       run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
@@ -57,16 +54,31 @@ jobs:
           mkdir -p /var/www/simple_app
           cd /var/www/simple_app
 
-          # Если это первый раз, клонируем репозиторий
+          # Проверяем, является ли директория репозиторием
           if [ ! -d ".git" ]; then
+            echo "Директория не является репозиторием. Выполняем клонирование..."
+            rm -rf * # Удаляем содержимое директории
             git clone git@github.com:Isochrone13/simple_app.git .
+          else
+            echo "Директория уже является репозиторием. Обновляем код..."
+            git reset --hard # Убираем локальные изменения
+            git pull origin main
           fi
 
-          # Обновляем код
-          git pull origin main
+          # Проверяем наличие package.json
+          if [ ! -f "package.json" ]; then
+            echo "Ошибка: package.json не найден. Проверьте репозиторий."
+            exit 1
+          fi
 
           # Устанавливаем зависимости
           npm install
+
+          # Проверяем наличие основного файла приложения
+          if [ ! -f "simple_app.js" ]; then
+            echo "Ошибка: simple_app.js не найден. Проверьте репозиторий."
+            exit 1
+          fi
 
           # Запускаем приложение через PM2
           pm2 start simple_app.js --name simple_app || pm2 restart simple_app
