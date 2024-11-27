@@ -39,6 +39,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Create SSH directory
+      run: mkdir -p ~/.ssh
+
     - name: Add GitHub to known hosts
       run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
