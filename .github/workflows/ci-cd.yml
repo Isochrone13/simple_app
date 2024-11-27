@@ -47,7 +47,20 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: 22
         script: |
+          # Создаем директорию, если её нет
+          mkdir -p /var/www/simple_app
           cd /var/www/simple_app
+
+          # Если это первый раз, клонируем репозиторий
+          if [ ! -d ".git" ]; then
+            git clone git@github.com:Isochrone13/simple_app.git .
+          fi
+
+          # Обновляем код
           git pull origin main
+
+          # Устанавливаем зависимости
           npm install
-          pm2 restart all
+
+          # Запускаем приложение через PM2
+          pm2 start app.js --name simple_app || pm2 restart simple_app
