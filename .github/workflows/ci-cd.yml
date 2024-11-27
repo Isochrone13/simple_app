@@ -36,16 +36,16 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
     steps:
-    - name: Checkout code
+    - name: Получение кода
       uses: actions/checkout@v3
 
-    - name: Create SSH directory
+    - name: Создать SSH директорию (на всякий случай)
       run: mkdir -p ~/.ssh
 
     - name: Добавить GitHub в список известных хостов
       run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
-    - name: Deploy to server via SSH
+    - name: Совершить деплой используя SSH
       uses: appleboy/ssh-action@v0.1.8
       with:
         host: ${{ secrets.DEPLOY_HOST }}
