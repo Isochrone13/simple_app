@@ -42,7 +42,7 @@ jobs:
     - name: Create SSH directory
       run: mkdir -p ~/.ssh
 
-    - name: Add GitHub to known hosts
+    - name: Добавить GitHub в список известных хостов
       run: ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
     - name: Deploy to server via SSH
