@@ -63,4 +63,4 @@ jobs:
           npm install
 
           # Запускаем приложение через PM2
-          pm2 start app.js --name simple_app || pm2 restart simple_app
+          pm2 start simple_app.js --name simple_app || pm2 restart simple_app
