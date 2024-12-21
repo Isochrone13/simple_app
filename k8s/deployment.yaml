@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple_app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: simple_app
+  template:
+    metadata:
+      labels:
+        app: simple_app
+    spec:
+      containers:
+      - name: simple_app
+        image: registry.gitlab.com/isochrone13/simple_app
+        ports:
+        - containerPort: 3000
+      imagePullSecrets:
+      - name: gitlab-registry
