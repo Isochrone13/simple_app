@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: simple_app
-        image: registry.gitlab.com/isochrone13/simple_app
+        image: registry.gitlab.com/soft-dev-edu/MEPHIDEV/simple_app:latest
         ports:
         - containerPort: 3000
       imagePullSecrets:

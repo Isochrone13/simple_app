@@ -3,7 +3,7 @@ stages:
   - deploy
 
 variables:
-  DOCKER_IMAGE: registry.gitlab.com/isochrone13/simple_app
+  DOCKER_IMAGE: registry.gitlab.com/soft-dev-edu/MEPHIDEV/simple_app
 
 build:
   stage: build
@@ -23,7 +23,7 @@ deploy_staging:
   - deploy
 
 variables:
-  DOCKER_IMAGE: registry.gitlab.com/isochrone13/simple_app
+  DOCKER_IMAGE: registry.gitlab.com/soft-dev-edu/MEPHIDEV/simple_app
 
 build:
   stage: build
